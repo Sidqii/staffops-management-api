@@ -25,9 +25,12 @@ class CreateTaskRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'assigned_to' => ['required','exists:users,id'],
+            'assigned_to' => ['required', 'exists:users,id'],
             'due_date' => ['required', 'date'],
             'priority_id' => ['required', 'exists:priorities,id'],
+
+            'files' => ['nullable', 'array'],
+            'files.*' => ['file', 'mimes:png,jpg,pdf,xlsx', 'max:2048'],
         ];
     }
 }

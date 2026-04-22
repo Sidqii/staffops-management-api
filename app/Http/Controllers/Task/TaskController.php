@@ -37,14 +37,28 @@ class TaskController extends Controller
      */
     public function store(CreateTaskRequest $request)
     {
+        $validated = $request->safe()->except('files');
+
         $task = Task::create([
-            ...$request->validated(),
+            ...$validated,
 
             'created_by' => $request->user()->id,
             'status_id' => Status::where('name', Status::PENDING)->value('id'),
         ]);
 
-        $task->load(['priority', 'status', 'assignee', 'creator']);
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('task_attachments', 'public');
+
+                $task->attachments()->create([
+                    'file_path' => $path,
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_type' => $file->getClientMimeType(),
+                ]);
+            }
+        }
+
+        $task->load(['priority', 'status', 'assignee', 'creator', 'attachments']);
 
         return new TaskResource($task);
     }

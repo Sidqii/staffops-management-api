@@ -2,6 +2,7 @@
 
 namespace App\Models\Management;
 
+use App\Models\Attachment\TaskAttachment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,6 +51,11 @@ class Task extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(TaskAttachment::class);
     }
 
     public function scopeSort($query, $sortby, $order)
