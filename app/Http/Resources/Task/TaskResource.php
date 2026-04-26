@@ -52,9 +52,7 @@ class TaskResource extends JsonResource
                 'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
             ],
 
-            'attachments' => TaskAttachmentResource::collection(
-                $this->whenLoaded('attachments')
-            ),
+            'attachments' => $this->relationLoaded('attachments') ? TaskAttachmentResource::collection($this->attachments) : null,
         ];
     }
 }

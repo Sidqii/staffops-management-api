@@ -23,7 +23,7 @@ class TaskController extends Controller
         $order = $request->input('order', 'desc');
 
         $tasks = Task::query()
-            ->with(['priority', 'status', 'assignee', 'creator'])
+            ->with(['priority', 'status', 'assignee', 'creator', 'attachments'])
             ->visibleTo($request->user())
             ->filter($request)
             ->sort($sortBy, $order)
