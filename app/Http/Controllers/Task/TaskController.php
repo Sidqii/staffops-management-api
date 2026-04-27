@@ -68,7 +68,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $task->load(['priority', 'status', 'assignee', 'creator']);
+        $task->load(['priority', 'status', 'assignee', 'creator', 'attachments']);
 
         return new TaskResource($task);
     }
@@ -80,7 +80,7 @@ class TaskController extends Controller
     {
         $task->update($request->validated());
 
-        $task->load(['priority', 'status', 'assignee', 'creator']);
+        $task->load(['priority', 'status', 'assignee', 'creator', 'attachments']);
 
         return new TaskResource($task);
     }
