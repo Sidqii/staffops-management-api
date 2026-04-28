@@ -6,7 +6,7 @@ A simple RESTful API for task management built using Laravel 11 and PostgreSQL.
 
 ## 🚀 Tech Stack
 
-* **Framework**: Laravel 11
+* **Framework**: Laravel 13
 * **Language**: PHP
 * **Database**: PostgreSQL
 * **Authentication**: Laravel Sanctum
